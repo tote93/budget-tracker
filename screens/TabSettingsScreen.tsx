@@ -1,14 +1,38 @@
+import * as React from "react";
 import { StyleSheet } from "react-native";
-
-import EditScreenInfo from "../components/EditScreenInfo";
-import { Text, View } from "../components/Themed";
+import { Icon, ListItem } from "react-native-elements";
+import { View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
+const list = [
+  {
+    title: "Categories",
+    icon: 'bookshelf',
+    type: "material-community"
 
-export default function SettingsScreen({ navigation }: RootTabScreenProps<"TabSettings">) {
+  },
+  {
+    title: "Currencies",
+    icon: 'coins',
+    type: "font-awesome-5"
+  },
+  {
+    title: "General Settings",
+    icon: 'settings',
+    type: "feather"
+  },
+];
+export default function SettingsScreen({ navigation, }: RootTabScreenProps<"TabSettings">) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Settings Tab</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+      {list.map((item, i) => (
+        <ListItem key={i} bottomDivider >
+          <Icon type={item.type} name={item.icon} />
+          <ListItem.Content>
+            <ListItem.Title style={styles.title}>{item.title}</ListItem.Title>
+          </ListItem.Content>
+          <ListItem.Chevron size={30} color="black"></ListItem.Chevron>
+        </ListItem>
+      ))}
     </View>
   );
 }
@@ -16,12 +40,10 @@ export default function SettingsScreen({ navigation }: RootTabScreenProps<"TabSe
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
   },
   title: {
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: 18,
+    color: "black"
   },
   separator: {
     marginVertical: 30,

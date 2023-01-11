@@ -19,7 +19,7 @@ import HomeTab from "../screens/TabHomeScreen";
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
 import SettingsScreen from "../screens/TabSettingsScreen";
-import TabCategoriesScreen from "../screens/TabCategoriesScreen";
+import TabAccountsScreen from "../screens/TabAccountsScreen";
 import TabNewItemScreen from "../screens/TabNewItemScreen";
 import TabStatsScreen from "../screens/TabStatsScreen";
 
@@ -70,7 +70,9 @@ function BottomTabNavigator() {
         component={HomeTab}
         options={({ navigation }: RootTabScreenProps<"TabHome">) => ({
           title: "Home",
-          tabBarIcon: ({ color }) => <Feather name="home" size={24} color={color} />,
+          tabBarIcon: ({ color }) => (
+            <Feather name="home" size={24} color={color} />
+          ),
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate("Modal")}
@@ -78,17 +80,24 @@ function BottomTabNavigator() {
                 opacity: pressed ? 0.5 : 1,
               })}
             >
-              <FontAwesome name="info-circle" size={25} color={Colors[colorScheme].text} style={{ marginRight: 15 }} />
+              <FontAwesome
+                name="info-circle"
+                size={25}
+                color={Colors[colorScheme].text}
+                style={{ marginRight: 15 }}
+              />
             </Pressable>
           ),
         })}
       />
       <BottomTab.Screen
-        name="TabCategories"
-        component={TabCategoriesScreen}
+        name="TabStats"
+        component={TabStatsScreen}
         options={{
-          title: "Categories",
-          tabBarIcon: ({ color }) => <MaterialCommunityIcons name="bookshelf" size={24} color={color} />,
+          title: "Stats",
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="stats-chart" size={24} color={color} />
+          ),
         }}
       />
       <BottomTab.Screen
@@ -96,15 +105,23 @@ function BottomTabNavigator() {
         component={TabNewItemScreen}
         options={{
           title: "",
-          tabBarIcon: ({ color }) => <AntDesign name="pluscircleo" style={{ color: "#0BFB9D", zIndex: 99, position: "absolute" }} size={60} />,
+          tabBarIcon: ({ color }) => (
+            <AntDesign
+              name="pluscircleo"
+              style={{ color: "#0BFB9D", zIndex: 99, position: "absolute" }}
+              size={60}
+            />
+          ),
         }}
       />
       <BottomTab.Screen
-        name="TabStats"
-        component={TabStatsScreen}
+        name="TabAccounts"
+        component={TabAccountsScreen}
         options={{
-          title: "Stats",
-          tabBarIcon: ({ color }) => <Ionicons name="stats-chart" size={24} color={color} />,
+          title: "Accounts",
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="wallet-sharp" size={24} color={color} />
+          ),
         }}
       />
       <BottomTab.Screen
@@ -112,7 +129,9 @@ function BottomTabNavigator() {
         component={SettingsScreen}
         options={{
           title: "Settings",
-          tabBarIcon: ({ color }) => <Feather name="settings" size={24} color={color} />,
+          tabBarIcon: ({ color }) => (
+            <Feather name="settings" size={24} color={color} />
+          ),
         }}
       />
     </BottomTab.Navigator>

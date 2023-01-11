@@ -4,11 +4,15 @@ import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
 
-export default function TabCategoriesScreen({ navigation }: RootTabScreenProps<"TabCategories">) {
+export default function TabAccountsScreen({ navigation }: RootTabScreenProps<"TabAccounts">) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Categories Tab</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+      <View
+        style={styles.separator}
+        lightColor="#eee"
+        darkColor="rgba(255,255,255,0.1)"
+      />
     </View>
   );
 }
