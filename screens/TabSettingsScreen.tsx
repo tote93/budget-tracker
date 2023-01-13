@@ -7,32 +7,50 @@ const list = [
   {
     title: "Categories",
     icon: 'bookshelf',
-    type: "material-community"
+    type: "material-community",
+    redirectTo: "Categories"
 
   },
   {
     title: "Currencies",
     icon: 'coins',
-    type: "font-awesome-5"
+    type: "font-awesome-5",
+    redirectTo: "Categories"
   },
   {
     title: "General Settings",
     icon: 'settings',
-    type: "feather"
+    type: "feather",
+    redirectTo: "Categories"
   },
 ];
 export default function SettingsScreen({ navigation, }: RootTabScreenProps<"TabSettings">) {
   return (
     <View style={styles.container}>
-      {list.map((item, i) => (
-        <ListItem key={i} bottomDivider >
-          <Icon type={item.type} name={item.icon} />
-          <ListItem.Content>
-            <ListItem.Title style={styles.title}>{item.title}</ListItem.Title>
-          </ListItem.Content>
-          <ListItem.Chevron size={30} color="black"></ListItem.Chevron>
-        </ListItem>
-      ))}
+      {/* Categories */}
+      <ListItem bottomDivider onPress={() => navigation.navigate("Categories")}>
+        <Icon type="material-community" name="bookshelf" />
+        <ListItem.Content>
+          <ListItem.Title style={styles.title}>Categories</ListItem.Title>
+        </ListItem.Content>
+        <ListItem.Chevron size={30} color="black"></ListItem.Chevron>
+      </ListItem>
+      {/* Currencies */}
+      <ListItem bottomDivider onPress={() => navigation.navigate("Currencies")}>
+        <Icon type="font-awesome-5" name="coins" />
+        <ListItem.Content>
+          <ListItem.Title style={styles.title}>Currencies</ListItem.Title>
+        </ListItem.Content>
+        <ListItem.Chevron size={30} color="black"></ListItem.Chevron>
+      </ListItem>
+      {/* General Settings */}
+      <ListItem bottomDivider onPress={() => navigation.navigate("Settings")}>
+        <Icon type="feather" name="settings" />
+        <ListItem.Content>
+          <ListItem.Title style={styles.title}>General Settings</ListItem.Title>
+        </ListItem.Content>
+        <ListItem.Chevron size={30} color="black"></ListItem.Chevron>
+      </ListItem>
     </View>
   );
 }

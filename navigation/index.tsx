@@ -14,14 +14,17 @@ import { FontAwesome, AntDesign, Feather, Ionicons, MaterialCommunityIcons } fro
 import Colors from "../constants/Colors";
 import useColorScheme from "../hooks/useColorScheme";
 import ModalScreen from "../screens/ModalScreen";
+import CategoriesScreen from "../screens/CategoriesScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import HomeTab from "../screens/TabHomeScreen";
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from "../types";
 import LinkingConfiguration from "./LinkingConfiguration";
-import SettingsScreen from "../screens/TabSettingsScreen";
+import TabSettingsScreen from "../screens/TabSettingsScreen";
 import TabAccountsScreen from "../screens/TabAccountsScreen";
 import TabNewItemScreen from "../screens/TabNewItemScreen";
 import TabStatsScreen from "../screens/TabStatsScreen";
+import CurrenciesScreen from "../screens/CurrenciesScreen";
+import SettingsScreen from "../screens/SettingsScreen";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -45,6 +48,9 @@ function RootNavigator() {
       <Stack.Group screenOptions={{ presentation: "modal" }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
       </Stack.Group>
+      <Stack.Screen name="Categories" component={CategoriesScreen} />
+      <Stack.Screen name="Currencies" component={CurrenciesScreen} />
+      <Stack.Screen name="Settings" component={SettingsScreen} />
     </Stack.Navigator>
   );
 }
@@ -126,7 +132,7 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="TabSettings"
-        component={SettingsScreen}
+        component={TabSettingsScreen}
         options={{
           title: "Settings",
           tabBarIcon: ({ color }) => (
