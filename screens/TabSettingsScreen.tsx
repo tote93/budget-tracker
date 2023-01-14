@@ -3,27 +3,7 @@ import { StyleSheet } from "react-native";
 import { Icon, ListItem } from "react-native-elements";
 import { View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
-const list = [
-  {
-    title: "Categories",
-    icon: 'bookshelf',
-    type: "material-community",
-    redirectTo: "Categories"
 
-  },
-  {
-    title: "Currencies",
-    icon: 'coins',
-    type: "font-awesome-5",
-    redirectTo: "Categories"
-  },
-  {
-    title: "General Settings",
-    icon: 'settings',
-    type: "feather",
-    redirectTo: "Categories"
-  },
-];
 export default function SettingsScreen({ navigation, }: RootTabScreenProps<"TabSettings">) {
   return (
     <View style={styles.container}>

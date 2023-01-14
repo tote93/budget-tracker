@@ -42,6 +42,8 @@ const linking: LinkingOptions<RootStackParamList> = {
           },
         },
       },
+      CurrencyList: "currencyList",
+      InitialConfig: "initialConfig",
       Categories: "categories",
       Currencies: "currencies",
       Settings: "settings",

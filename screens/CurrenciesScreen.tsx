@@ -1,16 +1,42 @@
 import { StatusBar } from 'expo-status-bar';
-import { Platform, StyleSheet } from 'react-native';
+import { FlatList, Modal, PixelRatio, Platform, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import Constants from 'expo-constants';
+import { View } from '../components/Themed';
+import { useState } from 'react';
+import { Button, Icon, Image, Text } from 'react-native-elements';
+import FastImage from 'expo-fast-image'
+import * as React from 'react';
+import { getStoredData } from '../utils/utils';
 
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+export default function CurrenciesScreen({ navigation }) {
+    const [selectedCountry, setSelectedCountry] = useState(null);
+    React.useEffect(() => {
+        // get the selected country from async storage using an async function
+        const getSelectedCountry = async () => {
+            const selectedCountry = await getStoredData('selectedCountry')
+            setSelectedCountry(selectedCountry)
+        }
+        getSelectedCountry()
+    }, [])
 
-export default function CurrenciesScreen() {
+    const openCurrencyList = () => {
+        navigation.navigate("CurrencyList", {
+            onSelect: (selectedCountry: any) => {
+                setSelectedCountry(selectedCountry)
+            }
+        })
+    }
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Currencies</Text>
-            <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-            <EditScreenInfo path="/screens/ModalScreen.tsx" />
-
+            <View style={styles.currencyContainer}>
+                <Icon type="font-awesome-5" name="coins" color={"#fff"} />
+                <Text style={styles.title}>Main Currency</Text>
+            </View>
+            <Button title="Change Currency" onPress={openCurrencyList} />
+            {selectedCountry && <View>
+                <Text style={styles.title}>{selectedCountry.name}</Text>
+                <FastImage cacheKey={selectedCountry.id} source={{ uri: 'data:image/png;base64,' + selectedCountry.flag }} style={styles.flagItem} />
+            </View>}
             {/* Use a light status bar on iOS to account for the black space above the modal */}
             <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
         </View>
@@ -20,16 +46,26 @@ export default function CurrenciesScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+        paddingTop: Constants.statusBarHeight,
+        padding: 8,
     },
     title: {
-        fontSize: 20,
+        fontSize: 16,
         fontWeight: 'bold',
+        color: '#fff',
+        marginLeft: 15,
     },
-    separator: {
-        marginVertical: 30,
-        height: 1,
-        width: '80%',
+    currencyContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        padding: 8,
+        borderBottomWidth: 1 / PixelRatio.get(),
+        borderBottomColor: '#ccc',
+    }, flagItem: {
+        width: 60,
+        height: 30,
+        resizeMode: 'cover',
+        borderColor: '#ccc',
+        borderWidth: 1 / PixelRatio.get(),
     },
 });

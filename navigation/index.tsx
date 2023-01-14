@@ -25,6 +25,7 @@ import TabNewItemScreen from "../screens/TabNewItemScreen";
 import TabStatsScreen from "../screens/TabStatsScreen";
 import CurrenciesScreen from "../screens/CurrenciesScreen";
 import SettingsScreen from "../screens/SettingsScreen";
+import CurrencyList from "../components/CurrencyList";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -47,6 +48,7 @@ function RootNavigator() {
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: "Oops!" }} />
       <Stack.Group screenOptions={{ presentation: "modal" }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
+        <Stack.Screen name="CurrencyList" options={{title: "Currencies"}} component={CurrencyList} />
       </Stack.Group>
       <Stack.Screen name="Categories" component={CategoriesScreen} />
       <Stack.Screen name="Currencies" component={CurrenciesScreen} />
