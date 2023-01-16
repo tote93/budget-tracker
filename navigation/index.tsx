@@ -26,6 +26,9 @@ import TabStatsScreen from "../screens/TabStatsScreen";
 import CurrenciesScreen from "../screens/CurrenciesScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import CurrencyList from "../components/CurrencyList";
+import EditCategory from "../components/EditCategory";
+import IconPickerModal from "../components/IconPickerModal";
+import ColorPickerModal from "../components/ColorPickerModal";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -48,7 +51,9 @@ function RootNavigator() {
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: "Oops!" }} />
       <Stack.Group screenOptions={{ presentation: "modal" }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
-        {/* <Stack.Screen name="CurrencyList" options={{ title: "Currencies" }} component={CurrencyList} /> */}
+        <Stack.Screen name="EditCategory" options={{ title: "EditCategory" }} component={EditCategory} />
+        <Stack.Screen name="IconPickerModal" options={{ title: "IconPickerModal" }} component={IconPickerModal} />
+        <Stack.Screen name="ColorPickerModal" options={{ title: "ColorPickerModal" }} component={ColorPickerModal} />
       </Stack.Group>
       <Stack.Screen name="Categories" component={CategoriesScreen} />
       <Stack.Screen name="Currencies" component={CurrenciesScreen} />

@@ -17,11 +17,14 @@ export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
   InitialConfig: undefined;
   Modal: undefined;
-  CurrencyList: undefined;
+  IconPickerModal: undefined;
+  ColorPickerModal: undefined;
+  EditCategory: undefined;
   NotFound: undefined;
   Categories: undefined,
   Currencies: undefined,
   Settings: undefined,
+  CategoriesComponent: undefined,
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<RootStackParamList, Screen>;
