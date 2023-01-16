@@ -4,12 +4,12 @@ import Constants from 'expo-constants';
 import { View } from '../components/Themed';
 import { useState } from 'react';
 import { Button, Icon, Image, Text } from 'react-native-elements';
-import FastImage from 'expo-fast-image'
+
 import * as React from 'react';
 import { getStoredData } from '../utils/utils';
 
 export default function CurrenciesScreen({ navigation }) {
-    const [selectedCountry, setSelectedCountry] = useState(null);
+    const [selectedCountry, setSelectedCountry]: any = useState(null);
     React.useEffect(() => {
         // get the selected country from async storage using an async function
         const getSelectedCountry = async () => {
@@ -35,7 +35,7 @@ export default function CurrenciesScreen({ navigation }) {
             <Button title="Change Currency" onPress={openCurrencyList} />
             {selectedCountry && <View>
                 <Text style={styles.title}>{selectedCountry.name}</Text>
-                <FastImage cacheKey={selectedCountry.id} source={{ uri: 'data:image/png;base64,' + selectedCountry.flag }} style={styles.flagItem} />
+                <Image style={styles.flagItem} source={{ uri: 'data:image/png;base64,' + selectedCountry.flag }} />
             </View>}
             {/* Use a light status bar on iOS to account for the black space above the modal */}
             <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />

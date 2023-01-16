@@ -5,21 +5,23 @@ import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import InitialConfigScreen from './screens/InitialConfigScreen';
-import { getStoredData } from './utils/utils';
+import { getStoredData, removeAllData, storeData } from './utils/utils';
 const INITIAL_CONFIG_KEY = 'initial-config';
 
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
-  const [initialConfig, setInitialConfig] = React.useState(null);
+  const [initialConfig, setInitialConfig] = React.useState();
+  const [storedData, setStoredData] = React.useState(false);
 
   React.useEffect(() => {
     async function checkInitialConfig() {
       try {
         const initialConfig = await getStoredData(INITIAL_CONFIG_KEY);
         if (initialConfig) {
-          setInitialConfig(JSON.parse(initialConfig));
+          setStoredData(true);
+          setInitialConfig(initialConfig);
         }
       } catch (e) {
         console.log(e);
@@ -27,6 +29,18 @@ export default function App() {
     }
     checkInitialConfig();
   }, []);
+  React.useEffect(() => {
+    async function storeInitialConfig() {
+      try {
+        console.log("Trying to save initial config:", initialConfig);
+        await storeData(INITIAL_CONFIG_KEY, initialConfig);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    // check if object initialConfig is empty
+    if (initialConfig && !storedData) storeInitialConfig()
+  }, [initialConfig]);
 
   if (!isLoadingComplete) {
     return null;

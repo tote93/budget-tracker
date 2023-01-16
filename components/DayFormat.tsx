@@ -4,22 +4,21 @@ import Constants from 'expo-constants';
 import { PixelRatio, StyleSheet, TouchableHighlight } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
-function CurrencyFormat({ selectCurrencyFormat }: { selectCurrencyFormat: any }) {
+function DayFormat({ selectDayFormat }: { selectDayFormat: any }) {
     const [selectedMode, setSelectedMode] = React.useState(0)
 
     const handleSelectedMode = (mode: number) => {
         setSelectedMode(mode)
-        selectCurrencyFormat(mode === 0 ? "europe" : "english")
+        selectDayFormat(mode === 0 ? "monday" : "sunday")
     }
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Currency Format:</Text>
+            <Text style={styles.title}>First day of the week:</Text>
             <View style={styles.numberMainContainer}>
                 <TouchableHighlight style={[styles.numberContainer, selectedMode == 0 && styles.highLightItem]} onPress={() => handleSelectedMode(0)}>
                     <View style={styles.touchContainer}>
-                        <Text style={[styles.numberText, selectedMode === 0 && styles.highLightText]}>33<Text style={styles.numberSeparator}>.</Text>123,33
-                            $
+                        <Text style={[styles.numberText, selectedMode === 0 && styles.highLightText]}>Monday
                         </Text>
                         {selectedMode == 0 && <AntDesign name="checkcircleo"
                             style={{ color: "#FFFFFF", marginLeft: 10 }}
@@ -28,8 +27,7 @@ function CurrencyFormat({ selectCurrencyFormat }: { selectCurrencyFormat: any })
                 </TouchableHighlight>
                 <TouchableHighlight style={[styles.numberContainer, selectedMode === 1 && styles.highLightItem]} onPress={() => handleSelectedMode(1)}>
                     <View style={styles.touchContainer}>
-                        <Text style={[styles.numberText, selectedMode === 1 && styles.highLightText]}>33,123<Text style={styles.numberSeparator}>.</Text>33
-                            $
+                        <Text style={[styles.numberText, selectedMode === 1 && styles.highLightText]}>Sunday
                         </Text>
                         {selectedMode == 1 && <AntDesign name="checkcircleo"
                             style={{ color: "#FFFFFF", marginLeft: 10 }}
@@ -92,4 +90,4 @@ const styles = StyleSheet.create({
         color: '#111',
     }
 });
-export default CurrencyFormat
+export default DayFormat

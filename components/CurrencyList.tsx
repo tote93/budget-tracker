@@ -5,10 +5,9 @@ import { countries } from '../utils/countries';
 import { useState } from 'react';
 import { FontAwesome } from '@expo/vector-icons';
 import SelectDropdown from 'react-native-select-dropdown'
-import FastImage from 'expo-fast-image'
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Image } from 'react-native-elements';;
 
-function CurrencyList() {
+function CurrencyList({ selectCurrency }: { selectCurrency: any }) {
     const [countriesList, setCountriesList] = useState(countries);
     const [_, setSearch] = useState('')
 
@@ -21,12 +20,20 @@ function CurrencyList() {
     const getCurrencyLabel = (item: any, displaySymbol: boolean = true) => {
         return `(${item.currency.code}) ${item.currency.symbol && displaySymbol ? item.currency.symbol : ''}`
     }
+
+    const handleSelect = (item: any) => {
+        selectCurrency(item)
+    }
+
+
     return (
         <View >
+            <Text style={styles.title}>Prefered currency:</Text>
             <SelectDropdown
                 data={countriesList}
                 defaultValueByIndex={199}
                 onSelect={(selectedItem, index) => {
+                    handleSelect(selectedItem)
                     return selectedItem
                 }}
                 defaultButtonText={'Prefered currency'}
@@ -55,16 +62,16 @@ function CurrencyList() {
                     return <FontAwesome name={'search'} color={'#444'} size={18} />;
                 }}
                 renderCustomizedRowChild={(item, index) => {
+
                     return (
                         <View style={styles.dropdownRenderedViewStyle}>
-                            <FastImage cacheKey={item.id} source={{ uri: 'data:image/png;base64,' + item.flag }} style={styles.dropdownRowImageStyle} />
-
-                            <View style={styles.dropdownCountryInfoStyle}>
+                            <Image style={styles.dropdownRowImageStyle} source={{ uri: 'data:image/png;base64,' + item.flag }} />
+                            <View View style={styles.dropdownCountryInfoStyle} >
                                 <Text style={styles.dropdownRowTextItemStyle}>{item.name}</Text>
                                 <Text style={styles.dropdownRowTextItemStyle}>{getCurrencyLabel(item)}</Text>
                             </View>
                         </View>
-                    );
+                    )
                 }}
                 renderCustomizedButtonChild={(selectedItem, index) => {
                     return (
@@ -74,12 +81,17 @@ function CurrencyList() {
                     );
                 }}
             />
-        </View>
+        </View >
 
     )
 }
 
 const styles = StyleSheet.create({
+    title: {
+        fontSize: 17,
+        color: '#fff',
+        marginBottom: 10,
+    },
     dropdownButtonStyle: {
         width: '100%',
         height: 50,
