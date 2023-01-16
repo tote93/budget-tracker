@@ -48,7 +48,7 @@ function RootNavigator() {
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: "Oops!" }} />
       <Stack.Group screenOptions={{ presentation: "modal" }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
-        <Stack.Screen name="CurrencyList" options={{title: "Currencies"}} component={CurrencyList} />
+        {/* <Stack.Screen name="CurrencyList" options={{ title: "Currencies" }} component={CurrencyList} /> */}
       </Stack.Group>
       <Stack.Screen name="Categories" component={CategoriesScreen} />
       <Stack.Screen name="Currencies" component={CurrenciesScreen} />
@@ -70,7 +70,9 @@ function BottomTabNavigator() {
     <BottomTab.Navigator
       initialRouteName="TabHome"
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarActiveTintColor: Colors[colorScheme].tabIconSelected,
+        tabBarInactiveBackgroundColor: Colors[colorScheme].tabUnselected,
+        tabBarActiveBackgroundColor: Colors[colorScheme].tabUnselected, headerShown: false
       }}
     >
       <BottomTab.Screen
@@ -96,6 +98,10 @@ function BottomTabNavigator() {
               />
             </Pressable>
           ),
+          headerTintColor: '#fff',
+          headerStyle: {
+            backgroundColor: "#000",
+          }
         })}
       />
       <BottomTab.Screen
@@ -105,7 +111,10 @@ function BottomTabNavigator() {
           title: "Stats",
           tabBarIcon: ({ color }) => (
             <Ionicons name="stats-chart" size={24} color={color} />
-          ),
+          ), headerTintColor: '#fff',
+          headerStyle: {
+            backgroundColor: "#000",
+          }
         }}
       />
       <BottomTab.Screen
@@ -116,10 +125,14 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => (
             <AntDesign
               name="pluscircleo"
-              style={{ color: "#0BFB9D", zIndex: 99, position: "absolute" }}
-              size={60}
+              style={{ color: "#0BFB9D", zIndex: 99, position: "absolute", backgroundColor: "#111" }}
+              size={55}
             />
           ),
+          headerTintColor: '#fff',
+          headerStyle: {
+            backgroundColor: "#000",
+          }
         }}
       />
       <BottomTab.Screen
@@ -130,6 +143,10 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => (
             <Ionicons name="wallet-sharp" size={24} color={color} />
           ),
+          headerTintColor: '#fff',
+          headerStyle: {
+            backgroundColor: "#000",
+          }
         }}
       />
       <BottomTab.Screen
@@ -140,6 +157,10 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => (
             <Feather name="settings" size={24} color={color} />
           ),
+          headerTintColor: '#fff',
+          headerStyle: {
+            backgroundColor: "#000",
+          }
         }}
       />
     </BottomTab.Navigator>

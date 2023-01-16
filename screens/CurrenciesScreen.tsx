@@ -37,8 +37,6 @@ export default function CurrenciesScreen({ navigation }) {
                 <Text style={styles.title}>{selectedCountry.name}</Text>
                 <Image style={styles.flagItem} source={{ uri: 'data:image/png;base64,' + selectedCountry.flag }} />
             </View>}
-            {/* Use a light status bar on iOS to account for the black space above the modal */}
-            <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
         </View>
     );
 }

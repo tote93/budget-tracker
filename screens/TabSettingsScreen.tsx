@@ -1,6 +1,8 @@
+import { StatusBar } from "expo-status-bar";
 import * as React from "react";
 import { StyleSheet } from "react-native";
 import { Icon, ListItem } from "react-native-elements";
+import StatusBarComponent from "../components/StatusBar";
 import { View } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
 
@@ -31,6 +33,7 @@ export default function SettingsScreen({ navigation, }: RootTabScreenProps<"TabS
         </ListItem.Content>
         <ListItem.Chevron size={30} color="black"></ListItem.Chevron>
       </ListItem>
+      <StatusBarComponent />
     </View>
   );
 }

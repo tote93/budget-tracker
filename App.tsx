@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import * as React from 'react';
 import useCachedResources from './hooks/useCachedResources';
@@ -6,6 +5,7 @@ import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import InitialConfigScreen from './screens/InitialConfigScreen';
 import { getStoredData, removeAllData, storeData } from './utils/utils';
+import StatusBar from './components/StatusBar';
 const INITIAL_CONFIG_KEY = 'initial-config';
 
 
