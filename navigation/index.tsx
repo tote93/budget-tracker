@@ -72,7 +72,8 @@ function BottomTabNavigator() {
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tabIconSelected,
         tabBarInactiveBackgroundColor: Colors[colorScheme].tabUnselected,
-        tabBarActiveBackgroundColor: Colors[colorScheme].tabUnselected, headerShown: false
+        tabBarActiveBackgroundColor: Colors[colorScheme].tabUnselected,
+        headerShown: false,
       }}
     >
       <BottomTab.Screen
@@ -80,9 +81,7 @@ function BottomTabNavigator() {
         component={HomeTab}
         options={({ navigation }: RootTabScreenProps<"TabHome">) => ({
           title: "Home",
-          tabBarIcon: ({ color }) => (
-            <Feather name="home" size={24} color={color} />
-          ),
+          tabBarIcon: ({ color }) => <Feather name="home" size={24} color={color} />,
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate("Modal")}
@@ -90,18 +89,13 @@ function BottomTabNavigator() {
                 opacity: pressed ? 0.5 : 1,
               })}
             >
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              />
+              <FontAwesome name="info-circle" size={25} color={Colors[colorScheme].text} style={{ marginRight: 15 }} />
             </Pressable>
           ),
-          headerTintColor: '#fff',
+          headerTintColor: "#fff",
           headerStyle: {
             backgroundColor: "#000",
-          }
+          },
         })}
       />
       <BottomTab.Screen
@@ -109,12 +103,11 @@ function BottomTabNavigator() {
         component={TabStatsScreen}
         options={{
           title: "Stats",
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="stats-chart" size={24} color={color} />
-          ), headerTintColor: '#fff',
+          tabBarIcon: ({ color }) => <Ionicons name="stats-chart" size={24} color={color} />,
+          headerTintColor: "#fff",
           headerStyle: {
             backgroundColor: "#000",
-          }
+          },
         }}
       />
       <BottomTab.Screen
@@ -122,17 +115,11 @@ function BottomTabNavigator() {
         component={TabNewItemScreen}
         options={{
           title: "",
-          tabBarIcon: ({ color }) => (
-            <AntDesign
-              name="pluscircleo"
-              style={{ color: "#0BFB9D", zIndex: 99, position: "absolute", backgroundColor: "#111" }}
-              size={55}
-            />
-          ),
-          headerTintColor: '#fff',
+          tabBarIcon: ({ color }) => <AntDesign name="pluscircleo" style={{ color: "#0BFB9D", zIndex: 99, position: "absolute", backgroundColor: "#111" }} size={55} />,
+          headerTintColor: "#fff",
           headerStyle: {
             backgroundColor: "#000",
-          }
+          },
         }}
       />
       <BottomTab.Screen
@@ -140,13 +127,11 @@ function BottomTabNavigator() {
         component={TabAccountsScreen}
         options={{
           title: "Accounts",
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="wallet-sharp" size={24} color={color} />
-          ),
-          headerTintColor: '#fff',
+          tabBarIcon: ({ color }) => <Ionicons name="wallet-sharp" size={24} color={color} />,
+          headerTintColor: "#fff",
           headerStyle: {
             backgroundColor: "#000",
-          }
+          },
         }}
       />
       <BottomTab.Screen
@@ -154,13 +139,11 @@ function BottomTabNavigator() {
         component={TabSettingsScreen}
         options={{
           title: "Settings",
-          tabBarIcon: ({ color }) => (
-            <Feather name="settings" size={24} color={color} />
-          ),
-          headerTintColor: '#fff',
+          tabBarIcon: ({ color }) => <Feather name="settings" size={24} color={color} />,
+          headerTintColor: "#fff",
           headerStyle: {
             backgroundColor: "#000",
-          }
+          },
         }}
       />
     </BottomTab.Navigator>

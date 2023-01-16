@@ -6,37 +6,32 @@ import { useState } from 'react';
 import { Button, Icon, Image, Text } from 'react-native-elements';
 
 import * as React from 'react';
-import { getStoredData } from '../utils/utils';
+import { getStoredData, INITIAL_CONFIG_KEY, updateStoredData } from '../utils/utils';
+import CurrencyList from '../components/CurrencyList';
 
-export default function CurrenciesScreen({ navigation }) {
-    const [selectedCountry, setSelectedCountry]: any = useState(null);
+export default function CurrenciesScreen({ navigation }: any) {
+    const [info, setInfo]: any = useState(null);
     React.useEffect(() => {
         // get the selected country from async storage using an async function
         const getSelectedCountry = async () => {
-            const selectedCountry = await getStoredData('selectedCountry')
-            setSelectedCountry(selectedCountry)
+            const info = await getStoredData(INITIAL_CONFIG_KEY)
+            setInfo(info)
+
         }
         getSelectedCountry()
     }, [])
 
-    const openCurrencyList = () => {
-        navigation.navigate("CurrencyList", {
-            onSelect: (selectedCountry: any) => {
-                setSelectedCountry(selectedCountry)
-            }
-        })
+    const handleSelectCurrency = async (selectedCurrency: any) => {
+        const dataUpdated = {
+            ...info,
+            currency: selectedCurrency
+        }
+        await updateStoredData(INITIAL_CONFIG_KEY, dataUpdated)
     }
+
     return (
         <View style={styles.container}>
-            <View style={styles.currencyContainer}>
-                <Icon type="font-awesome-5" name="coins" color={"#fff"} />
-                <Text style={styles.title}>Main Currency</Text>
-            </View>
-            <Button title="Change Currency" onPress={openCurrencyList} />
-            {selectedCountry && <View>
-                <Text style={styles.title}>{selectedCountry.name}</Text>
-                <Image style={styles.flagItem} source={{ uri: 'data:image/png;base64,' + selectedCountry.flag }} />
-            </View>}
+            {info && <CurrencyList selectCurrency={handleSelectCurrency} selection={info.currency.index || 199} />}
         </View>
     );
 }
@@ -45,25 +40,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: Constants.statusBarHeight,
-        padding: 8,
+        width: '100%',
     },
     title: {
         fontSize: 16,
         fontWeight: 'bold',
         color: '#fff',
         marginLeft: 15,
-    },
-    currencyContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: 8,
-        borderBottomWidth: 1 / PixelRatio.get(),
-        borderBottomColor: '#ccc',
-    }, flagItem: {
-        width: 60,
-        height: 30,
-        resizeMode: 'cover',
-        borderColor: '#ccc',
-        borderWidth: 1 / PixelRatio.get(),
     },
 });

@@ -1,4 +1,37 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+export const INITIAL_CONFIG_KEY = 'initial-config';
+export const INCOMES_KEY = 'incomes-config';
+export const EXPENSES_KEY = 'expenses-config';
+
+export const expenseCategories = [
+    { id: 1, name: 'Food', icon: 'fastfood', color: '#f9a825', type: "material-icons" },
+    { id: 2, name: 'Transport', icon: 'car', color: '#f9a825', type: "ant-design" },
+    { id: 3, name: 'Shopping', icon: 'shoppingcart', color: '#f9a825', type: "ant-design" },
+    { id: 4, name: 'Bills', icon: 'money-bill-alt', color: '#f9a825', type: "font-awesome-5" },
+    { id: 5, name: 'Entertainment', icon: 'headphones-alt', color: '#f9a825', type: "font-awesome-5" },
+    { id: 6, name: 'Health', icon: 'hearto', color: '#f9a825', type: "ant-design" },
+    { id: 7, name: 'Education', icon: 'book', color: '#f9a825', type: "font-awesome-5" },
+    { id: 8, name: 'Gifts', icon: 'gift', color: '#f9a825', type: "ant-design" },
+    { id: 9, name: 'Health', icon: 'hearto', color: '#f9a825', type: "ant-design" },
+    { id: 10, name: 'Education', icon: 'book', color: '#f9a825', type: "font-awesome-5" },
+    { id: 11, name: 'Gifts', icon: 'gift', color: '#f9a825', type: "ant-design" },
+    { id: 12, name: 'Health', icon: 'hearto', color: '#f9a825', type: "ant-design" },
+    { id: 13, name: 'Education', icon: 'book', color: '#f9a825', type: "font-awesome-5" },
+    { id: 14, name: 'Gifts', icon: 'gift', color: '#f9a825', type: "ant-design" },
+]
+export const incomesCategories = [
+    { id: 1, name: 'Salary', icon: 'attach-money', color: '#f9a825', type: "material-icons" },
+    { id: 2, name: 'Investments', icon: 'chart-line', color: '#f9a825', type: "font-awesome-5" },
+    { id: 3, name: 'Savings', icon: 'piggy-bank', color: '#f9a825', type: "font-awesome-5" },
+    { id: 4, name: 'Gifts', icon: 'gift', color: '#f9a825', type: "ant-design" },
+]
+
+export const initialiceCategories = async () => {
+    storeData(INCOMES_KEY, incomesCategories);
+    storeData(EXPENSES_KEY, expenseCategories);
+}
+
+
 export const storeData = async (name: string, data: unknown) => {
     try {
         await AsyncStorage.setItem(name, JSON.stringify(data));
@@ -19,7 +52,6 @@ export const getStoredData = async (name: string) => {
 export const removeStoredData = async (name: string) => {
     try {
         await AsyncStorage.removeItem(name);
-        console.log("Item removed:", name)
     } catch (e) {
         console.log("Error during remove item:", { e, name });
     }
@@ -31,5 +63,14 @@ export const removeAllData = async () => {
         console.log("All items removed")
     } catch (e) {
         console.log("Error during remove all items:", e);
+    }
+}
+
+export const updateStoredData = async (name: string, data: unknown) => {
+    try {
+        await removeStoredData(name);
+        await storeData(name, data);
+    } catch (e) {
+        console.log("Error during update item:", { e, name, data });
     }
 }

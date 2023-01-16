@@ -4,9 +4,9 @@ import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 import InitialConfigScreen from './screens/InitialConfigScreen';
-import { getStoredData, removeAllData, storeData } from './utils/utils';
+import { getStoredData, initialiceCategories, INITIAL_CONFIG_KEY, removeAllData, storeData } from './utils/utils';
 import StatusBar from './components/StatusBar';
-const INITIAL_CONFIG_KEY = 'initial-config';
+
 
 
 export default function App() {
@@ -34,6 +34,7 @@ export default function App() {
       try {
         console.log("Trying to save initial config:", initialConfig);
         await storeData(INITIAL_CONFIG_KEY, initialConfig);
+        await initialiceCategories();
       } catch (e) {
         console.log(e);
       }
@@ -46,7 +47,7 @@ export default function App() {
     return null;
   }
   else if (!initialConfig) {
-    return <InitialConfigScreen setInitialConfig={setInitialConfig} />;
+    return <InitialConfigScreen setInitialConfig={setInitialConfig} selection={199} />;
   }
   else {
     return (

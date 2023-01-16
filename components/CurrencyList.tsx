@@ -7,7 +7,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import SelectDropdown from 'react-native-select-dropdown'
 import { Image } from 'react-native-elements';;
 
-function CurrencyList({ selectCurrency }: { selectCurrency: any }) {
+function CurrencyList({ selectCurrency, selection }: { selectCurrency: any, selection: number }) {
     const [countriesList, setCountriesList] = useState(countries);
     const [_, setSearch] = useState('')
 
@@ -22,16 +22,17 @@ function CurrencyList({ selectCurrency }: { selectCurrency: any }) {
     }
 
     const handleSelect = (item: any) => {
+        item["index"] = countriesList.findIndex((country: any) => country.name === item.name)
         selectCurrency(item)
     }
 
 
     return (
-        <View >
+        <View style={styles.container}>
             <Text style={styles.title}>Prefered currency:</Text>
             <SelectDropdown
                 data={countriesList}
-                defaultValueByIndex={199}
+                defaultValueByIndex={selection || 199}
                 onSelect={(selectedItem, index) => {
                     handleSelect(selectedItem)
                     return selectedItem
@@ -87,6 +88,10 @@ function CurrencyList({ selectCurrency }: { selectCurrency: any }) {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        width: '100%',
+        position: 'relative',
+    },
     title: {
         fontSize: 17,
         color: '#fff',
