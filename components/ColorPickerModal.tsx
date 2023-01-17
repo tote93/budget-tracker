@@ -1,14 +1,31 @@
 import { StatusBar } from 'expo-status-bar';
 import { Platform, StyleSheet } from 'react-native';
 
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import { View } from '../components/Themed';
+import ColorPicker from 'react-native-wheel-color-picker'
+import { Button } from 'react-native-elements';
+import { useState } from 'react';
 
-export default function ColorPickerModal() {
+export default function ColorPickerModal({ navigation, route }: any) {
+    navigation.setOptions({ title: route.params.title });
+    const [selectedColor, setSelectedColor] = useState(route.params.color)
+    const handleSave = () => {
+        route.params.setColor(selectedColor)
+        navigation.goBack(null);
+    }
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Color Picker Modal</Text>
-            <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+            <View style={styles.colorPickerContainer}>
+                <ColorPicker
+                    color={selectedColor}
+                    discrete={false}
+                    onColorChangeComplete={(color) => setSelectedColor(color)}
+                    row={false}
+                    sliderSize={20}
+                    discreteLength={100}
+                />
+            </View>
+            <Button title="Save" onPress={handleSave} style={{ width: '100%', }} />
         </View>
     );
 }
@@ -16,16 +33,18 @@ export default function ColorPickerModal() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
+        width: '100%',
     },
     title: {
         fontSize: 20,
         fontWeight: 'bold',
     },
-    separator: {
-        marginVertical: 30,
-        height: 1,
-        width: '80%',
+    colorPickerContainer:
+    {
+        flex: 1,
+        backgroundColor: '#556CD6',
+        width: '100%',
+        padding: 20,
+
     },
 });

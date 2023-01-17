@@ -5,12 +5,12 @@ import { TextInput } from 'react-native';
 import { Text, View } from './Themed';
 import { Pressable } from "react-native";
 import { FontAwesome, } from "@expo/vector-icons";
-import { Icon } from 'react-native-elements';
+import { Button, Icon } from 'react-native-elements';
 
 export default function EditCategory({ route, navigation }: any) {
-
     // Set the header title on the parent screen using the `navigation.setOptions`
-    const { name, category } = route.params;
+    const { category } = route.params;
+
     navigation.setOptions({ title: route.params.name });
     navigation.setOptions({
         headerRight: () => (
@@ -24,21 +24,29 @@ export default function EditCategory({ route, navigation }: any) {
             </Pressable>
         ),
     });
-    const [categoryName, setCategoryName] = useState(category.name);
-
+    const [categoryName, setCategoryName] = useState(category?.name);
+    const [color, setColor] = useState(category?.color)
+    const [iconName, setIconName] = useState(category?.icon)
+    const [iconType, setIconType] = useState(category?.type)
+    const handleIconFormat = (iconName: string, iconType: string) => {
+        setIconName(iconName)
+        setIconType(iconType)
+    }
     const handleRemove = () => {
         console.log('remove')
     }
     const handleCategoryIcon = () => {
         console.log('category icon')
-        navigation.navigate('IconPickerModal')
+        navigation.navigate('IconPickerModal', { title: "Category Icon Picker", setIcon: handleIconFormat, icon: iconName, type: category.type })
     }
 
     const handleColorPicker = () => {
         console.log('category icon')
-        navigation.navigate('ColorPickerModal')
+        navigation.navigate('ColorPickerModal', { color: color, title: "Category Color Picker", setColor: setColor })
     }
-
+    const updateCategory = () => {
+        console.log('update category', color, iconName, categoryName)
+    }
     return (
         <View style={styles.container}>
             <TextInput
@@ -50,14 +58,15 @@ export default function EditCategory({ route, navigation }: any) {
             {/* Text with 'Choose the category icon' */}
             <View style={styles.categoryContainer}>
                 <Text style={styles.title}>Choose the category icon</Text>
-                <Icon type={category.type} name={category.icon} onPress={handleCategoryIcon} color={"#fff"} style={{ borderRadius: 50, backgroundColor: category.color, padding: 5 }} />
-            </View>
-            <View style={styles.categoryContainer}>
-                <Text style={styles.title}>Choose the category color</Text>
+                <Icon type={iconType} name={iconName} onPress={handleCategoryIcon} color={"#fff"} style={{ borderRadius: 50, backgroundColor: color, padding: 5 }} />
             </View>
             {/* Text with 'Choose the category color' */}
-
+            <View style={styles.categoryContainer}>
+                <Text style={styles.title}>Choose the category color</Text>
+                <Icon type={category.type} name={category.icon} onPress={handleColorPicker} color={color} style={{ borderRadius: 50, backgroundColor: color, padding: 5 }} />
+            </View>
             {/* Button with 'Save' */}
+            <Button title="Save" onPress={updateCategory} style={{ width: '100%', }} />
         </View>
     );
 }
