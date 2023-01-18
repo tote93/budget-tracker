@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { FlatList, Modal, PixelRatio, Platform, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import Constants from 'expo-constants';
-import { View } from '../components/Themed';
+import { StyledView } from '../components/Themed';
 import { useState } from 'react';
 import { Button, Icon, Image, Text } from 'react-native-elements';
 import * as React from 'react';
@@ -29,23 +29,23 @@ export default function InitialConfigScreen({ setInitialConfig }: any) {
     }
 
     return (
-        <View style={styles.container}>
-            <View style={styles.titleContainer}>
+        <StyledView style={styles.container}>
+            <StyledView style={styles.titleContainer}>
                 <AntDesign
                     name="rocket1"
                     style={{ color: "#0BFB9D" }}
                     size={30}
                 />
                 <Text style={styles.title}>Initial Configuration</Text>
-            </View>
-            <View style={styles.componentContainer}>
+            </StyledView>
+            <StyledView style={styles.componentContainer}>
                 <CurrencyList selectCurrency={setSelectedCurrency} />
                 <CurrencyFormat selectCurrencyFormat={setSelectedCurrencyFormat} />
                 <DayFormat selectDayFormat={setSelectedDayFormat} />
-            </View>
+            </StyledView>
 
             <Button title="Save" onPress={handleSave} />
-        </View>
+        </StyledView>
     );
 }
 

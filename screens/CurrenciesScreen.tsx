@@ -1,10 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
-import { FlatList, Modal, PixelRatio, Platform, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
-import Constants from 'expo-constants';
-import { View } from '../components/Themed';
-import { useState } from 'react';
-import { Button, Icon, Image, Text } from 'react-native-elements';
 
+import { StyleSheet, } from 'react-native';
+import Constants from 'expo-constants';
+import { StyledView } from '../components/Themed';
+import { useState } from 'react';
 import * as React from 'react';
 import { getStoredData, INITIAL_CONFIG_KEY, updateStoredData } from '../utils/utils';
 import CurrencyList from '../components/CurrencyList';
@@ -30,9 +28,9 @@ export default function CurrenciesScreen({ navigation }: any) {
     }
 
     return (
-        <View style={styles.container}>
+        <StyledView style={styles.container}>
             {info && <CurrencyList selectCurrency={handleSelectCurrency} selection={info.currency.index || 199} />}
-        </View>
+        </StyledView>
     );
 }
 

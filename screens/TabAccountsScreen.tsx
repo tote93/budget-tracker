@@ -1,19 +1,19 @@
 import { StyleSheet } from "react-native";
 
 import EditScreenInfo from "../components/EditScreenInfo";
-import { Text, View } from "../components/Themed";
+import { Text, StyledView } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
 
 export default function TabAccountsScreen({ navigation }: RootTabScreenProps<"TabAccounts">) {
   return (
-    <View style={styles.container}>
+    <StyledView style={styles.container}>
       <Text style={styles.title}>Categories Tab</Text>
-      <View
+      <StyledView
         style={styles.separator}
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
-    </View>
+    </StyledView>
   );
 }
 

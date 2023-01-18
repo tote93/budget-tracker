@@ -3,15 +3,15 @@ import * as React from "react";
 import { StyleSheet } from "react-native";
 import { Icon, ListItem } from "react-native-elements";
 import StatusBarComponent from "../components/StatusBar";
-import { View } from "../components/Themed";
+import { StyledView } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
 
 export default function SettingsScreen({ navigation }: RootTabScreenProps<"TabSettings">) {
   return (
-    <View style={styles.container}>
+    <StyledView style={styles.container}>
       <StatusBarComponent />
       {/* Categories */}
-      <View style={{ marginTop: 30 }}>
+      <StyledView style={{ marginTop: 30 }}>
         <ListItem bottomDivider onPress={() => navigation.navigate("Categories")}>
           <Icon type="material-community" name="bookshelf" />
           <ListItem.Content>
@@ -35,8 +35,8 @@ export default function SettingsScreen({ navigation }: RootTabScreenProps<"TabSe
           </ListItem.Content>
           <ListItem.Chevron size={30} color="black"></ListItem.Chevron>
         </ListItem>
-      </View>
-    </View>
+      </StyledView>
+    </StyledView>
   );
 }
 

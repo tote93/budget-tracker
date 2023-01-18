@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Text, View } from './Themed'
+import { Text, StyledView } from './Themed'
 import Constants from 'expo-constants';
 import { PixelRatio, StyleSheet, TouchableHighlight } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
@@ -13,29 +13,29 @@ function DayFormat({ selectDayFormat }: { selectDayFormat: any }) {
     }
 
     return (
-        <View style={styles.container}>
+        <StyledView style={styles.container}>
             <Text style={styles.title}>First day of the week:</Text>
-            <View style={styles.numberMainContainer}>
+            <StyledView style={styles.numberMainContainer}>
                 <TouchableHighlight style={[styles.numberContainer, selectedMode == 0 && styles.highLightItem]} onPress={() => handleSelectedMode(0)}>
-                    <View style={styles.touchContainer}>
+                    <StyledView style={styles.touchContainer}>
                         <Text style={[styles.numberText, selectedMode === 0 && styles.highLightText]}>Monday
                         </Text>
                         {selectedMode == 0 && <AntDesign name="checkcircleo"
                             style={{ color: "#FFFFFF", marginLeft: 10 }}
                             size={20} />}
-                    </View>
+                    </StyledView>
                 </TouchableHighlight>
                 <TouchableHighlight style={[styles.numberContainer, selectedMode === 1 && styles.highLightItem]} onPress={() => handleSelectedMode(1)}>
-                    <View style={styles.touchContainer}>
+                    <StyledView style={styles.touchContainer}>
                         <Text style={[styles.numberText, selectedMode === 1 && styles.highLightText]}>Sunday
                         </Text>
                         {selectedMode == 1 && <AntDesign name="checkcircleo"
                             style={{ color: "#FFFFFF", marginLeft: 10 }}
                             size={20} />}
-                    </View>
+                    </StyledView>
                 </TouchableHighlight>
-            </View >
-        </View>
+            </StyledView >
+        </StyledView>
     )
 }
 const styles = StyleSheet.create({

@@ -14,9 +14,9 @@ export const expenseCategories = [
     { id: 8, name: 'Gifts', icon: 'gift', color: "#fb0ad0", type: "ant-design" },
 ]
 export const incomesCategories = [
-    { id: 1, name: 'Salary', icon: 'attach-money', color: '#f9a825', type: "material-icons" },
-    { id: 2, name: 'Investments', icon: 'chart-line', color: '#f9a825', type: "font-awesome-5" },
-    { id: 3, name: 'Savings', icon: 'piggy-bank', color: '#f9a825', type: "font-awesome-5" },
+    { id: 1, name: 'Salary', icon: 'attach-money', color: '#46F106', type: "material-icons" },
+    { id: 2, name: 'Investments', icon: 'chart-line', color: '#389CEE', type: "font-awesome-5" },
+    { id: 3, name: 'Savings', icon: 'piggy-bank', color: '#ffaaff', type: "font-awesome-5" },
     { id: 4, name: 'Gifts', icon: 'gift', color: '#f9a825', type: "ant-design" },
 ]
 
@@ -29,6 +29,7 @@ export const initialiceCategories = async () => {
 export const storeData = async (name: string, data: unknown) => {
     try {
         await AsyncStorage.setItem(name, JSON.stringify(data));
+        console.log("Saved item:", { name, })
     } catch (e) {
         console.log("Error during save item:", { e, name, data });
     }
@@ -46,6 +47,7 @@ export const getStoredData = async (name: string) => {
 export const removeStoredData = async (name: string) => {
     try {
         await AsyncStorage.removeItem(name);
+        console.log("Removed item:", name)
     } catch (e) {
         console.log("Error during remove item:", { e, name });
     }

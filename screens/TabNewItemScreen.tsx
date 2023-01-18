@@ -1,15 +1,15 @@
 import { StyleSheet } from "react-native";
 
 import EditScreenInfo from "../components/EditScreenInfo";
-import { Text, View } from "../components/Themed";
+import { Text, StyledView } from "../components/Themed";
 import { RootTabScreenProps } from "../types";
 
 export default function TabNewItemScreen({ navigation }: RootTabScreenProps<"TabAddNewItem">) {
   return (
-    <View style={styles.container}>
+    <StyledView style={styles.container}>
       <Text style={styles.title}>Tab New Item</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-    </View>
+      <StyledView style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+    </StyledView>
   );
 }
 

@@ -1,8 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { Platform, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { TextInput } from 'react-native';
-import { Text, View } from './Themed';
+import { Text, StyledView } from './Themed';
 import { Pressable } from "react-native";
 import { FontAwesome, } from "@expo/vector-icons";
 import { Button, Icon } from 'react-native-elements';
@@ -33,41 +33,46 @@ export default function EditCategory({ route, navigation }: any) {
         setIconType(iconType)
     }
     const handleRemove = () => {
-        console.log('remove')
+        route.params.removeItem(category)
+        close();
     }
     const handleCategoryIcon = () => {
-        console.log('category icon')
         navigation.navigate('IconPickerModal', { title: "Category Icon Picker", setIcon: handleIconFormat, icon: iconName, type: category.type })
     }
 
     const handleColorPicker = () => {
-        console.log('category icon')
         navigation.navigate('ColorPickerModal', { color: color, title: "Category Color Picker", setColor: setColor })
     }
     const updateCategory = () => {
-        console.log('update category', color, iconName, categoryName)
+        route.params.updateItem({ id: category.id, name: categoryName, color: color, icon: iconName, type: iconType })
+        close();
+    }
+    const close = () => {
+        navigation.goBack()
     }
     return (
-        <View style={styles.container}>
-            <TextInput
-                placeholder={`Edit ${route.params.name} category name`}
-                value={categoryName}
-                style={[styles.input, { borderWidth: 1, borderColor: '#fff', borderRadius: 5, backgroundColor: '#000' }]}
-                onChangeText={(text) => setCategoryName(text)}
-            />
-            {/* Text with 'Choose the category icon' */}
-            <View style={styles.categoryContainer}>
-                <Text style={styles.title}>Choose the category icon</Text>
-                <Icon type={iconType} name={iconName} onPress={handleCategoryIcon} color={"#fff"} style={{ borderRadius: 50, backgroundColor: color, padding: 5 }} />
-            </View>
-            {/* Text with 'Choose the category color' */}
-            <View style={styles.categoryContainer}>
-                <Text style={styles.title}>Choose the category color</Text>
-                <Icon type={category.type} name={category.icon} onPress={handleColorPicker} color={color} style={{ borderRadius: 50, backgroundColor: color, padding: 5 }} />
+        <StyledView style={styles.container}>
+            <View>
+                <TextInput
+                    placeholder={`Edit ${route.params.name} category name`}
+                    value={categoryName}
+                    style={[styles.input, { borderWidth: 1, borderColor: '#fff', borderRadius: 5, backgroundColor: '#000' }]}
+                    onChangeText={(text) => setCategoryName(text)}
+                />
+                {/* Text with 'Choose the category icon' */}
+                <StyledView style={styles.categoryContainer}>
+                    <Text style={styles.title}>Choose the category icon</Text>
+                    <Icon type={iconType} name={iconName} onPress={handleCategoryIcon} color={"#fff"} style={{ borderRadius: 50, backgroundColor: color, padding: 5 }} />
+                </StyledView>
+                {/* Text with 'Choose the category color' */}
+                <StyledView style={styles.categoryContainer}>
+                    <Text style={styles.title}>Choose the category color</Text>
+                    <Icon type={category.type} name={category.icon} onPress={handleColorPicker} color={color} style={{ borderRadius: 50, backgroundColor: color, padding: 5 }} />
+                </StyledView>
             </View>
             {/* Button with 'Save' */}
             <Button title="Save" onPress={updateCategory} style={{ width: '100%', }} />
-        </View>
+        </StyledView>
     );
 }
 
@@ -75,6 +80,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 10,
+
+        justifyContent: 'space-between',
     },
     title: {
         fontSize: 20,

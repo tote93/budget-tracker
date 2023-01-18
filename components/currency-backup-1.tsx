@@ -1,13 +1,12 @@
 
-import { FlatList, Modal, PixelRatio, Platform, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
-import { Text, View } from '../components/Themed';
+import { FlatList, Modal, PixelRatio,  StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { Text, StyledView } from '../components/Themed';
 import { countries } from '../utils/countries';
 import { useState } from 'react';
-import FastImage from 'expo-fast-image'
 import Constants from 'expo-constants';
 import { storeData } from '../utils/utils';
 
-function CurrencyList({ route, navigation }) {
+function CurrencyList({ route, navigation }: ) {
     const [countriesList, setCountriesList] = useState(countries);
     const [_, setSelectedCountry] = useState();
     const [search, setSearch] = useState('')
@@ -31,8 +30,8 @@ function CurrencyList({ route, navigation }) {
         setCountriesList(filteredCountries)
     }
     return (
-        <View style={styles.modalContainer}>
-            <View style={styles.searchContainer}>
+        <StyledView style={styles.modalContainer}>
+            <StyledView style={styles.searchContainer}>
                 {/*     <Image source={require('./lupa.png')} style={styles.searchIcon} /> */}
                 <TextInput
                     style={styles.searchInput}
@@ -42,20 +41,20 @@ function CurrencyList({ route, navigation }) {
                     placeholder="Search country by name or currency"
                     placeholderTextColor="#BDBDBD"
                 />
-            </View>
+            </StyledView>
             <FlatList
                 data={countriesList}
                 renderItem={({ item }) => (
                     <TouchableOpacity onPress={() => handleSelectCountry(item)}>
-                        <View style={styles.countryView}>
+                        <StyledView style={styles.countryView}>
                             <Text style={styles.title}>{item.name} {getCurrencyItem(item)}</Text>
                             {/*  <FastImage cacheKey={item.id} source={{ uri: 'data:image/png;base64,' + item.flag }} style={styles.flagItem} /> */}
-                        </View>
+                        </StyledView>
                     </TouchableOpacity>
                 )}
                 keyExtractor={item => item.id}
             />
-        </View>
+        </StyledView>
 
     )
 }

@@ -1,6 +1,6 @@
 
 import { StyleSheet } from 'react-native';
-import { Text, View } from '../components/Themed';
+import { Text, StyledView } from '../components/Themed';
 import { countries } from '../utils/countries';
 import { useState } from 'react';
 import { FontAwesome } from '@expo/vector-icons';
@@ -28,7 +28,7 @@ function CurrencyList({ selectCurrency, selection }: { selectCurrency: any, sele
 
 
     return (
-        <View style={styles.container}>
+        <StyledView style={styles.container}>
             <Text style={styles.title}>Prefered currency:</Text>
             <SelectDropdown
                 data={countriesList}
@@ -39,7 +39,7 @@ function CurrencyList({ selectCurrency, selection }: { selectCurrency: any, sele
                 }}
                 defaultButtonText={'Prefered currency'}
                 buttonTextAfterSelection={(item, index) => {
-                    return selectedItem;
+                    return item;
                 }}
                 rowTextForSelection={(item, index) => {
                     return item;
@@ -65,24 +65,24 @@ function CurrencyList({ selectCurrency, selection }: { selectCurrency: any, sele
                 renderCustomizedRowChild={(item, index) => {
 
                     return (
-                        <View style={styles.dropdownRenderedViewStyle}>
+                        <StyledView style={styles.dropdownRenderedViewStyle}>
                             <Image style={styles.dropdownRowImageStyle} source={{ uri: 'data:image/png;base64,' + item.flag }} />
-                            <View View style={styles.dropdownCountryInfoStyle} >
+                            <StyledView style={styles.dropdownCountryInfoStyle} >
                                 <Text style={styles.dropdownRowTextItemStyle}>{item.name}</Text>
                                 <Text style={styles.dropdownRowTextItemStyle}>{getCurrencyLabel(item)}</Text>
-                            </View>
-                        </View>
+                            </StyledView>
+                        </StyledView>
                     )
                 }}
                 renderCustomizedButtonChild={(selectedItem, index) => {
                     return (
-                        <View style={styles.dropdownRenderedViewStyle}>
+                        <StyledView style={styles.dropdownRenderedViewStyle}>
                             <Text style={styles.dropdownSelectedRowTextStyle}>{selectedItem ? selectedItem.currency.code + " - " + selectedItem.name : 'Select country'}</Text>
-                        </View>
+                        </StyledView>
                     );
                 }}
             />
-        </View >
+        </StyledView >
 
     )
 }

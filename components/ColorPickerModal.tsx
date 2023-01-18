@@ -1,7 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
-import { Platform, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-import { View } from '../components/Themed';
+import { StyledView } from '../components/Themed';
 import ColorPicker from 'react-native-wheel-color-picker'
 import { Button } from 'react-native-elements';
 import { useState } from 'react';
@@ -14,8 +13,8 @@ export default function ColorPickerModal({ navigation, route }: any) {
         navigation.goBack(null);
     }
     return (
-        <View style={styles.container}>
-            <View style={styles.colorPickerContainer}>
+        <StyledView style={styles.container}>
+            <StyledView style={styles.colorPickerContainer}>
                 <ColorPicker
                     color={selectedColor}
                     discrete={false}
@@ -24,9 +23,9 @@ export default function ColorPickerModal({ navigation, route }: any) {
                     sliderSize={20}
                     discreteLength={100}
                 />
-            </View>
+            </StyledView>
             <Button title="Save" onPress={handleSave} style={{ width: '100%', }} />
-        </View>
+        </StyledView>
     );
 }
 
