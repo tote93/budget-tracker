@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { TextInput } from 'react-native';
 import { Text, StyledView } from './Themed';
 import { Pressable } from "react-native";
@@ -9,25 +9,39 @@ import { Button, Icon } from 'react-native-elements';
 
 export default function EditCategory({ route, navigation }: any) {
     // Set the header title on the parent screen using the `navigation.setOptions`
-    const { category } = route.params;
+    const { category, action } = route.params;
 
     navigation.setOptions({ title: route.params.name });
-    navigation.setOptions({
-        headerRight: () => (
-            <Pressable
-                onPress={handleRemove}
-                style={({ pressed }) => ({
-                    opacity: pressed ? 0.5 : 1,
-                })}
-            >
-                <FontAwesome name="trash" size={25} color={"#F40157"} style={{ marginRight: 15 }} />
-            </Pressable>
-        ),
-    });
-    const [categoryName, setCategoryName] = useState(category?.name);
-    const [color, setColor] = useState(category?.color)
-    const [iconName, setIconName] = useState(category?.icon)
-    const [iconType, setIconType] = useState(category?.type)
+    if (action === "edit") {
+        navigation.setOptions({
+            headerRight: () => (
+                <Pressable
+                    onPress={handleRemove}
+                    style={({ pressed }) => ({
+                        opacity: pressed ? 0.5 : 1,
+                    })}
+                >
+                    <FontAwesome name="trash" size={25} color={"#F40157"} style={{ marginRight: 15 }} />
+                </Pressable>
+            ),
+        });
+    }
+
+
+    const defaultCategory = {
+        id: -1,
+        name: "",
+        color: "#fff",
+        icon: "circle",
+        type: "font-awesome-5"
+    }
+    const [categoryItem] = useState(category ? category : defaultCategory);
+    const [categoryName, setCategoryName] = useState(category?.name || "Category Name");
+    const [color, setColor] = useState(category?.color || "#f9a825")
+    const [iconName, setIconName] = useState(category?.icon || "coins")
+    const [iconType, setIconType] = useState(category?.type || "font-awesome-5")
+    const [categoryType, setCategoryType] = useState('expenses');
+
     const handleIconFormat = (iconName: string, iconType: string) => {
         setIconName(iconName)
         setIconType(iconType)
@@ -44,17 +58,21 @@ export default function EditCategory({ route, navigation }: any) {
         navigation.navigate('ColorPickerModal', { color: color, title: "Category Color Picker", setColor: setColor })
     }
     const updateCategory = () => {
-        route.params.updateItem({ id: category.id, name: categoryName, color: color, icon: iconName, type: iconType })
+        let params = { id: categoryItem.id, name: categoryName, color: color, icon: iconName, type: iconType, categoryType: categoryType }
+        if (action === "add") route.params.createitem(params)
+        else route.params.updateItem(params)
         close();
     }
     const close = () => {
         navigation.goBack()
     }
+
+
     return (
         <StyledView style={styles.container}>
             <View>
                 <TextInput
-                    placeholder={`Edit ${route.params.name} category name`}
+                    placeholder={`Category name`}
                     value={categoryName}
                     style={[styles.input, { borderWidth: 1, borderColor: '#fff', borderRadius: 5, backgroundColor: '#000' }]}
                     onChangeText={(text) => setCategoryName(text)}
@@ -67,8 +85,35 @@ export default function EditCategory({ route, navigation }: any) {
                 {/* Text with 'Choose the category color' */}
                 <StyledView style={styles.categoryContainer}>
                     <Text style={styles.title}>Choose the category color</Text>
-                    <Icon type={category.type} name={category.icon} onPress={handleColorPicker} color={color} style={{ borderRadius: 50, backgroundColor: color, padding: 5 }} />
+                    <Icon type={categoryItem.type} name={categoryItem.icon} onPress={handleColorPicker} color={color} style={{ borderRadius: 50, backgroundColor: color, padding: 5 }} />
                 </StyledView>
+                {/* action is add new category */}
+                {action === "add" && <StyledView style={{ marginTop: 30 }}>
+                    <TouchableOpacity
+                        style={[
+                            styles.button,
+                            categoryType === 'expenses' && styles.selectedButton
+                        ]}
+                        onPress={() => setCategoryType('expenses')}
+                    >
+                        <View style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
+                            <Text>Expenses</Text>
+                            <Text>{categoryType === "expenses" && <Icon type="entypo" name="check" color="#f9a825" />}</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[
+                            styles.button,
+                            categoryType === 'incomes' && styles.selectedButton
+                        ]}
+                        onPress={() => setCategoryType('incomes')}
+                    >
+                        <View style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: "row" }}>
+                            <Text>Incomes</Text>
+                            <Text>{categoryType === "incomes" && <Icon type="entypo" name="check" color="#f9a825" />}</Text>
+                        </View>
+                    </TouchableOpacity>
+                </StyledView>}
             </View>
             {/* Button with 'Save' */}
             <Button title="Save" onPress={updateCategory} style={{ width: '100%', }} />
@@ -80,7 +125,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 10,
-
         justifyContent: 'space-between',
     },
     title: {
@@ -95,7 +139,7 @@ const styles = StyleSheet.create({
     input: {
         borderWidth: 1,
         fontSize: 20,
-        lineHeight: 20,
+        lineHeight: 0,
         padding: 20,
         width: "100%",
         color: '#fff'
@@ -107,4 +151,15 @@ const styles = StyleSheet.create({
         marginTop: 20,
         marginBottom: 10,
     },
+    button: {
+        padding: 10,
+        borderWidth: 1,
+        borderRadius: 5,
+        margin: 5,
+        backgroundColor: 'gray',
+    },
+    selectedButton: {
+        backgroundColor: '#0C8266',
+    },
+
 });

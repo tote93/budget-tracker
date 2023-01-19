@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { StyledView } from './Themed';
 import { Icon, ListItem } from "react-native-elements";
 import { EXPENSES_KEY, INCOMES_KEY, updateStoredData } from '../utils/utils';
+import { FontAwesome } from '@expo/vector-icons';
 
 export default function Categories({ navigation, categoryList, title, type, icon }: { navigation: any, categoryList: object[], title: string, type: string, icon: string }) {
     const [categories, setCategories] = useState([...categoryList])
     const [expanded, setExpanded] = useState(false)
     const handleEdit = (category: any) => {
-        navigation.navigate('EditCategory', { category, name: 'Edit ' + category.name, removeItem: handleDelete, updateItem: handleUpdate })
+        navigation.navigate('EditCategory', { action: "edit", category, name: 'Edit ' + category.name, removeItem: handleDelete, updateItem: handleUpdate })
     }
     useEffect(() => {
         setCategories([...categoryList])
@@ -34,6 +35,34 @@ export default function Categories({ navigation, categoryList, title, type, icon
         if (type === "expenses") await updateStoredData(EXPENSES_KEY, newCategories);
         else await updateStoredData(INCOMES_KEY, newCategories);
     }
+    const handleAdd = () => {
+        navigation.navigate('EditCategory', { action: "add", name: 'Add new category', createitem: handleCreate })
+    }
+    const handleCreate = async (category: any) => {
+        const typeCategory = category.categoryType === "expenses" ? "expenses" : "incomes";
+        delete category.categoryType;
+        category.id = categories.length + 1;
+        const newCategories = [...categories, category];
+        setCategories(newCategories);
+        if (typeCategory === "expenses") await updateStoredData(EXPENSES_KEY, newCategories);
+        else await updateStoredData(INCOMES_KEY, newCategories);
+    }
+
+    // Add a button to the header to add new item
+    navigation.setOptions({
+        headerRight: () => (
+            <Pressable
+                onPress={handleAdd}
+                style={({ pressed }) => ({
+                    opacity: pressed ? 0.5 : 1,
+                })}
+            >
+                <FontAwesome name="plus" size={20} color={"#fff"} />
+            </Pressable>
+        ),
+    });
+
+
     return (
         <StyledView style={styles.container}>
             <ListItem.Accordion
@@ -41,7 +70,7 @@ export default function Categories({ navigation, categoryList, title, type, icon
                     <>
                         <Icon name={icon} type="font-awesome-5" size={30} color={type === "expenses" ? '#ff3300' : "#ffaaff"} />
                         <ListItem.Content style={{ color: "#111", position: "relative" }}>
-                            <ListItem.Title style={styles.listTitle}>{title}</ListItem.Title>
+                            <ListItem.Title style={styles.listTitle}>{title}  ({categories.length})</ListItem.Title>
                         </ListItem.Content>
                     </>
                 }
