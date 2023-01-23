@@ -78,7 +78,7 @@ function BottomTabNavigator() {
         tabBarActiveTintColor: Colors[colorScheme].tabIconSelected,
         tabBarInactiveBackgroundColor: Colors[colorScheme].tabUnselected,
         tabBarActiveBackgroundColor: Colors[colorScheme].tabUnselected,
-        headerShown: false,
+        /*   headerShown: false, */
       }}
     >
       <BottomTab.Screen
@@ -118,14 +118,14 @@ function BottomTabNavigator() {
       <BottomTab.Screen
         name="TabAddNewItem"
         component={TabNewItemScreen}
-        options={{
+        options={({ navigation }: RootTabScreenProps<"TabAddNewItem">) => ({
           title: "",
           tabBarIcon: ({ color }) => <AntDesign name="pluscircleo" style={{ color: "#0BFB9D", zIndex: 99, position: "absolute", backgroundColor: "#111" }} size={55} />,
           headerTintColor: "#fff",
           headerStyle: {
             backgroundColor: "#000",
           },
-        }}
+        })}
       />
       <BottomTab.Screen
         name="TabAccounts"

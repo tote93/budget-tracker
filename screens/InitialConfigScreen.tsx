@@ -1,11 +1,9 @@
-import { StatusBar } from 'expo-status-bar';
-import { FlatList, Modal, PixelRatio, Platform, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { PixelRatio, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
 import { StyledView } from '../components/Themed';
 import { useState } from 'react';
-import { Button, Icon, Image, Text } from 'react-native-elements';
-import * as React from 'react';
-import { AntDesign, FontAwesome } from '@expo/vector-icons';
+import { Button, Text } from 'react-native-elements';
+import { AntDesign } from '@expo/vector-icons';
 import CurrencyList from '../components/CurrencyList';
 import CurrencyFormat from '../components/CurrencyFormat';
 import DayFormat from '../components/DayFormat';
